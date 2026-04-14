@@ -471,12 +471,14 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center top;
+    object-position: center center;
     display: block;
+    position: relative;
+    z-index: 1;
   }
 
   .avatar-initials {
-    /* Hidden when real image is shown */
+    display: none;
   }
 
   .chat-intro-block {}
@@ -597,11 +599,7 @@
   }
 
   .api-note {
-    margin-top: 0.75rem;
-    font-size: 0.62rem;
-    color: var(--text-secondary);
-    opacity: 0.35;
-    letter-spacing: 0.04em;
+    display: none;
   }
 
   /* ─── GET IN TOUCH ───────────────────────────────────────────── */
@@ -793,7 +791,7 @@
           <polyline points="2,4 12,13 22,4"/>
         </svg>
         <span class="contact-label">Email</span>
-        <span class="contact-desc">simon.huber1990@gmail.com</span>
+        <span class="contact-desc">Write an email</span>
       </a>
 
       <!-- LinkedIn -->
@@ -807,7 +805,7 @@
           <path d="M12 11a3 3 0 0 1 5 2v3"/>
         </svg>
         <span class="contact-label">LinkedIn</span>
-        <span class="contact-desc">Connect or follow my work</span>
+        <span class="contact-desc">DM me on LinkedIn</span>
       </a>
 
       <!-- WhatsApp -->
@@ -849,9 +847,9 @@ const MILESTONES = [
     year: '2010',
     label: 'Education',
     preview: 'Two degrees, one clear direction: get as close to startups as possible, as fast as possible.',
-    summary: 'Two degrees, one clear direction: get as close to startups as possible, as fast as possible. At LMU\'s Innovation track, that meant real projects with real stakes — including a business plan for a biotech spin-off commercialising modular lab hardware, and a strategy proposal to Spotify\'s leadership team recommending vertical integration. Spotify did not listen. Netflix eventually proved the thesis.',
-    learning: 'Getting thrown at real problems before you feel ready is the fastest way to build judgment. That is the learning. The lecture theatre just provides the excuse to be in the room.',
-    funFact: 'The most useful class was a throwaway elective worth almost no credits. A business angel mentioned a company called NavVis in passing. A few years later, I was working there.',
+    summary: 'Two degrees, one clear direction: get as close to startups as possible, as fast as possible. At LMU\'s Innovation track, we were lucky to work on some hands-on business challenges: writing a business plan for a biotech spin-off commercializing modular lab hardware, and a strategy proposal to Spotify\'s leadership team recommending vertical integration in Netflix-style. Spotify did not listen.',
+    learning: 'Getting thrown at real business problems before you feel ready is the fastest way to build an execution muscle. Besides all theory, that was the key insight and delivered the best learnings.',
+    funFact: 'The most useful class was a side elective class worth almost no credits. A business angel introduced us to his portfolio companies, this is where I met the NavVis founders and landed my first job.',
     prefill: 'What made you choose LMU\'s Innovation track over a traditional business degree?',
     pending: false
   },
@@ -865,9 +863,9 @@ const MILESTONES = [
     year: '2016',
     label: 'First Job',
     preview: 'First startup role at a spatial intelligence company mapping the world\'s interiors at scale.',
-    summary: 'NavVis had a general-purpose spatial intelligence platform that could turn any physical space into a precise digital twin. Our team\'s job was to find where it mattered most: research, experiments, and business cases across verticals until something stuck. The answer was manufacturing enterprises. That call has held and remains a core pillar of NavVis\'s business today.',
-    learning: 'Moving fast across product, sales, and C-level without grinding everything to a halt is a skill you only learn by doing. This role was the crash course.',
-    funFact: 'Joined at 25 people, left at 200. Three months in, I was running a company-wide pitch competition. Nobody mentioned that was not standard onboarding.',
+    summary: 'NavVis has a combination of hard- and software tech that turns any physical space into a precise digital twin. Our team\'s job was to build a strategy towards "product market fit" and validate our target verticals. Customer research, multiple experiments, and business cases across industries until something stuck. The initial thesis was manufacturing, construction and real estate. Two of them remain a core pillar of NavVis\'s business strategy today.',
+    learning: 'Got a front-row seat to what good leadership actually looks like in practice: a strong team setting direction, aligning stakeholders, and executing. I was part of the execution team, which taught me more than any classroom did before.',
+    funFact: 'Joined NavVis at 25 people, left at 200. Three months in, I was sent to a pitch competition and won (I have proof, just ask). Gotta love the start-up onboarding process.',
     prefill: 'What does finding product-market fit actually look like from the inside?',
     pending: false
   },
@@ -881,9 +879,9 @@ const MILESTONES = [
     year: '2019',
     label: 'Scaling-up',
     preview: 'Building the partner ecosystem from scratch — SAP, Dassault Systèmes, HERE Technologies.',
-    summary: 'We built NavVis\'s partner ecosystem from scratch. The centrepiece was strategic software partnerships with global players like SAP, Dassault Systèmes, and HERE Technologies: integrating into their platforms, co-developing solutions, and running joint GTM motions with their sales and marketing teams. A second tier of implementation and solution partners rounded out the model. By the end, the partnership function was a core part of how NavVis went to market.',
-    learning: 'C-level trust takes longer to build than any sales cycle — and pays out longer too. Without a big brand behind you, it comes down to patience and staying relevant to their agenda.',
-    funFact: 'Dassault flew me to their flagship event in China to present NavVis to delegations from across Asia. I had been in enterprise software for about two years. The room did not know that.',
+    summary: 'We built NavVis\'s partner ecosystem from scratch. The centrepiece was strategic software partnerships with global players like SAP, Dassault Systèmes, and HERE Technologies: integrating into their platforms, co-developing solutions, and running joint GTM motions with their sales and marketing teams. A second tier of implementation and solution partners rounded out the model. I was lucky to manage key client relationships independently, with enough trust from my manager to actually run with them.',
+    learning: 'Relationships that turn into partnerships are built on consistency, trust, and giving value before expecting anything back. Also, lots of enterprise sales lessons.',
+    funFact: 'Two years into enterprise software, Dassault flew me to Shanghai to present NavVis to Asian delegations at their flagship event. Presenting to hundreds of people from all over Asia - pretty cool experience.',
     prefill: 'How do you build a partner program from zero when you\'re a relatively unknown startup?',
     pending: false
   },
@@ -897,9 +895,9 @@ const MILESTONES = [
     year: '2020',
     label: 'Zero-to-One',
     preview: 'Built the partnerships function from zero. 20% of company revenue in 18 months.',
-    summary: 'e-bot7 needed a partnerships function. There wasn\'t one. I built it: a SaaS partner program spanning value-added, implementation, and referral partners, with a team, an onboarding process, and a partner portal to run it through. Working closely with sales, customer success, and product, the program generated 20% of total company revenue within 18 months. The company was acquired in 2021. We kept going until the handover was done.',
-    learning: 'First leadership role, no playbook. The lesson: hire well, cut scope when resources are thin, and build something that genuinely serves sales rather than running alongside it. Most partner programs get that last part wrong.',
-    funFact: 'Joined at peak COVID. All the pressure of a high-growth startup, none of the office energy. You can build a team entirely over video calls. Would not recommend it as the preferred method.',
+    summary: 'e-bot7 needed a partnerships function after Series A. So the founders brought me on to build it: a SaaS partner program spanning value-added, implementation, and referral partners, with a team, an onboarding process, and a partner portal to run it through. Working closely with sales, customer success, and product, the program generated 20% of total company revenue within 18 months. The company was acquired in 2021.',
+    learning: 'First leadership role, no playbook. The lesson: hire good people, cut scope when resources are thin, and build something that genuinely serves the customer rather than running alongside it. Many partner programs get that last part wrong.',
+    funFact: 'Joined the team at peak COVID and got all the pressure of a high-growth startup, with none of the office energy. Anyone interested in another virtual Christmas party?',
     prefill: 'What does it take to build a partner program that actually drives revenue rather than just looking good on a slide?',
     pending: false
   },
@@ -913,9 +911,9 @@ const MILESTONES = [
     year: '2023',
     label: 'VC Era',
     preview: 'End-to-end venture investing across the US, Europe, and ANZ. 10+ investments executed.',
-    summary: 'End-to-end venture investing: from sourcing and thesis development to due diligence, structuring, and wiring the money. IAGFV invests globally, so the role means maintaining a live network of founders and investors across the US, Europe, and ANZ while going deep into specific sectors to find the best companies before anyone else does. 10+ investments executed. One Notion CRM built to keep it all from falling through the cracks.',
-    learning: 'VC runs on power law logic: a small number of outcomes drive almost everything. Once that sinks in, it changes every decision you make. Enough founder exposure builds a pattern recognition that is hard to explain but impossible to unsee.',
-    funFact: 'It quietly bothered me that IAGFV had never done a European deal. So I sourced one. 7Analytics, Norway, 2024 — the fund\'s first. Personal project: complete.',
+    summary: 'Running end-to-end venture investing from sourcing and thesis development to due diligence, structuring, and wiring the money. IAGFV invests globally, so the role means maintaining a live network of founders and investors across the US, Europe, and ANZ while going deep into specific sectors to find the best companies before anyone else does. 10+ investments executed. One Notion CRM built to keep it all from falling through the cracks.',
+    learning: 'VC runs on power law logic where a small number of outcomes drive almost everything. Once that sinks in, it changes every decision you make. Enough founder exposure builds a pattern recognition that is hard to explain but impossible to unsee.',
+    funFact: 'IAGFV had never done a European deal. As a proud European, that quietly bothered me so I sourced one. We invested in 7Analytics from Norway in 2024. The fund\'s first.',
     prefill: 'What\'s the biggest difference between how operators think and how investors think?',
     pending: false
   },
@@ -931,7 +929,7 @@ const MILESTONES = [
     preview: 'The next move is deliberate: back inside the machine, not watching from the outside.',
     summary: 'VC gave me a rare vantage point: hundreds of companies, dozens of founders, patterns that only emerge from that kind of exposure. But my strengths are better deployed inside the machine than observing it. I want to own a problem, build a team around it, and execute. The AI shift is creating opportunities that a good operator can do more with than a good investor. I want to be in the room where it\'s being built, not the one writing the cheque.',
     learning: 'Five years across operating and investing taught me one thing: the best founders move faster than their uncertainty. That is the mode I want to be back in.',
-    funFact: 'I have been in the Australian PR queue for 13 months. Apparently the government also believes in a long due diligence process before committing.',
+    funFact: 'I have been in the Australian PR queue for 13 months and counting. Apparently the government also believes in a long due diligence process before committing.',
     prefill: 'Why leave venture to go back to an operating role?',
     pending: false
   }
