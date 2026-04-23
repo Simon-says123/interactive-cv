@@ -75,6 +75,15 @@
     margin-bottom: 1.5rem;
   }
 
+  .hero-intent {
+    font-size: 0.85rem;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    white-space: nowrap;
+  }
+
   .hero-cta-row {
     display: flex;
     align-items: center;
@@ -925,7 +934,8 @@
   <!-- ── HERO ── -->
   <header>
     <h1 class="hero-name">Simon.ai</h1>
-    <p class="hero-sub-primary">Learn more about me in the Career Timeline</p>
+    <p class="hero-sub-primary">Operator · Investor · Back to building</p>
+    <p class="hero-intent">Looking for a high-impact role at a Sydney-based start-up</p>
     <div class="hero-cta-row">
       <p class="hero-sub-secondary">Or ask me any questions below</p>
       <button class="scroll-arrow-btn" onclick="document.getElementById('ask-simon').scrollIntoView({behavior:'smooth'})" aria-label="Jump to Ask Simon">
@@ -953,7 +963,7 @@
   <!-- ── SKILLS ── -->
   <section class="skills-section" id="skills">
     <h2 class="section-heading">How I work</h2>
-    <p class="section-tagline" style="margin-bottom: 2rem;">Built with Claude Cowork. Each skill runs on GitHub.</p>
+    <p class="section-tagline" style="margin-bottom: 2rem;">Built to move faster in an AI-first world, as investor and operator.</p>
 
     <!-- Venture Capital -->
     <div class="skills-category" id="cat-vc">
@@ -1170,7 +1180,7 @@ const MILESTONES = [
     year: '2026',
     label: 'New Beginnings',
     preview: 'The next move is deliberate: back inside the machine, not watching from the outside.',
-    summary: 'VC gave me a rare vantage point: hundreds of companies, dozens of founders, patterns that only emerge from that kind of exposure. But my strengths are better deployed inside the machine than observing it. I want to own a problem, build a team around it, and execute. The AI shift is creating opportunities that a good operator can do more with than a good investor. I want to be in the room where it\'s being built, not the one writing the cheque.',
+    summary: 'VC gave me a rare vantage point: hundreds of companies, dozens of founders, patterns that only emerge from that kind of exposure. But my strengths are better deployed inside the machine than observing it. I want to own a problem, build a team around it, and execute. The AI shift is creating opportunities that a good operator can do more with than a good investor. I want to be in the room where it\'s being built, not the one writing the cheque. Early-stage, AI-native startup in Sydney.',
     learning: 'Five years across operating and investing taught me one thing: the best founders move faster than their uncertainty. That is the mode I want to be back in.',
     funFact: 'I have been in the Australian PR queue for 13 months and counting. Apparently the government also believes in a long due diligence process before committing.',
     prefill: 'Why leave venture to go back to an operating role?',
@@ -1265,27 +1275,6 @@ const VC_SKILLS = [
 
 const OPS_SKILLS = [
   {
-    name: 'North Star Metric',
-    short: 'Define your NSM and supporting metrics constellation.',
-    desc: 'Defines a North Star Metric and 3-5 supporting input metrics. Classifies the business game, validates the NSM against 7 effectiveness criteria, and produces a formatted PDF ready to share.',
-    github: 'https://github.com/Simon-says123/Start-up-operator-skills/tree/main/north-star-metric',
-    status: 'live'
-  },
-  {
-    name: 'BM Canvas',
-    short: 'Full 9-block BMC for any business or idea, delivered as a PDF.',
-    desc: 'Complete 9-block BMC covering customer segments to cost structure. Includes a Key Assumptions & Risks section. Works for new ventures, existing company audits, and investor prep.',
-    github: 'https://github.com/Simon-says123/Start-up-operator-skills/tree/main/business-model-canvas',
-    status: 'live'
-  },
-  {
-    name: 'Battlecards',
-    short: 'Sales-ready battlecard for any head-to-head competitor match-up.',
-    desc: 'Structured battlecard covering feature comparison, objection handling, and win/loss patterns. Designed for competitive deals and sales team briefings — output is a formatted PDF.',
-    github: 'https://github.com/Simon-says123/Start-up-operator-skills/tree/main/competitive-battlecard',
-    status: 'live'
-  },
-  {
     name: 'GTM Strategy',
     short: 'Go-to-market plan with channel mix, KPIs, and a 90-day roadmap.',
     desc: 'Full go-to-market strategy for a product launch or new market entry. Covers channel mix, messaging framework, KPI targets, and a 90-day execution roadmap. Output is a DOCX.',
@@ -1297,6 +1286,27 @@ const OPS_SKILLS = [
     short: 'Four-quadrant SWOT with cross-reference insights and recommendations.',
     desc: 'Structured SWOT for any product, business, or strategic decision. Produces a PDF with a four-quadrant matrix, SO/ST/WO/WT cross-reference insights, and 3-5 prioritised recommendations.',
     github: 'https://github.com/Simon-says123/Start-up-operator-skills/tree/main/swot-analysis',
+    status: 'live'
+  },
+  {
+    name: 'Battlecards',
+    short: 'Sales-ready battlecard for any head-to-head competitor match-up.',
+    desc: 'Structured battlecard covering feature comparison, objection handling, and win/loss patterns. Designed for competitive deals and sales team briefings — output is a formatted PDF.',
+    github: 'https://github.com/Simon-says123/Start-up-operator-skills/tree/main/competitive-battlecard',
+    status: 'live'
+  },
+  {
+    name: 'BM Canvas',
+    short: 'Full 9-block BMC for any business or idea, delivered as a PDF.',
+    desc: 'Complete 9-block BMC covering customer segments to cost structure. Includes a Key Assumptions & Risks section. Works for new ventures, existing company audits, and investor prep.',
+    github: 'https://github.com/Simon-says123/Start-up-operator-skills/tree/main/business-model-canvas',
+    status: 'live'
+  },
+  {
+    name: 'North Star Metric',
+    short: 'Define your NSM and supporting metrics constellation.',
+    desc: 'Defines a North Star Metric and 3-5 supporting input metrics. Classifies the business game, validates the NSM against 7 effectiveness criteria, and produces a formatted PDF ready to share.',
+    github: 'https://github.com/Simon-says123/Start-up-operator-skills/tree/main/north-star-metric',
     status: 'live'
   },
   {
