@@ -913,15 +913,43 @@
     .container { padding: 0 1.5rem; }
     header { padding: 3.5rem 0 2.5rem; }
 
+    /* Hero — fix tagline overflow and grow touch target */
+    .hero-intent { white-space: normal; }
+    .scroll-arrow-btn { width: 2.75rem; height: 2.75rem; }
+
+    /* Timeline — horizontally scrollable rail */
+    .rail-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 0 -1.5rem;
+      padding: 0 1.5rem 1rem;
+    }
+    .rail-line { display: none; }
+    .timeline-rail { justify-content: flex-start; gap: 1.75rem; padding-bottom: 0.5rem; }
     .milestone-icon { width: 3.5rem; height: 3.5rem; }
     .milestone-icon svg { width: 1.5rem; height: 1.5rem; }
     .milestone-tooltip { display: none; }
+    .milestone-label { display: none; }
 
+    /* Expand panel — extra room for stacked content */
+    .expand-panel.open { max-height: 1400px; }
     .panel-meta { grid-template-columns: 1fr; gap: 1.25rem; }
     .panel-title { font-size: 1.5rem; }
 
-    .skills-grid { grid-template-columns: 1fr 1fr; }
+    /* Skills — show full description by default (no hover on mobile), single column */
+    .skills-grid { grid-template-columns: 1fr; }
+    .skill-tile { min-height: auto; }
+    .skill-text-wrap { min-height: auto; }
+    .skill-tile-short { display: none; }
+    .skill-tile-desc { position: static; opacity: 1; }
 
+    /* Section spacing — reduce vertical breathing room */
+    .timeline-section { margin-bottom: 3.5rem; }
+    .skills-section { padding-top: 3rem; margin-bottom: 3.5rem; }
+    .chat-section { padding-top: 3rem; margin-bottom: 3.5rem; }
+    .contact-section { padding-top: 3rem; margin-bottom: 4rem; }
+
+    /* Chat & contact */
     .chat-header { flex-direction: column; gap: 1rem; }
     .contact-options { grid-template-columns: 1fr 1fr; gap: 1rem; }
   }
@@ -1100,7 +1128,7 @@ const MILESTONES = [
     year: '2010',
     label: 'Education',
     preview: 'Two degrees, one clear direction: get as close to startups as possible, as fast as possible.',
-    summary: 'Two degrees, one clear direction: get as close to startups as possible, as fast as possible. At LMU\'s Innovation track, we were lucky to work on some hands-on business challenges: writing a business plan for a biotech spin-off commercializing modular lab hardware, and a strategy proposal to Spotify\'s leadership team recommending vertical integration in Netflix-style. Spotify did not listen.',
+    summary: 'During my business studies, I made it a priority to get as close to startups as possible, as quickly as possible. At LMU\'s Innovation track, that meant working on hands-on projects like building a business plan for a biotech spin-off commercializing modular lab hardware, and pitching a Netflix-style vertical integration strategy to Spotify\'s leadership. Spotify did not listen by the way.',
     learning: 'Getting thrown at real business problems before you feel ready is the fastest way to build an execution muscle. Besides all theory, that was the key insight and delivered the best learnings.',
     funFact: 'The most useful class was a side elective class worth almost no credits. A business angel introduced us to his portfolio companies, this is where I met the NavVis founders and landed my first job.',
     prefill: 'What made you choose LMU\'s Innovation track over a traditional business degree?',
@@ -1117,7 +1145,7 @@ const MILESTONES = [
     label: 'Starting-Up',
     preview: 'First startup role at a spatial intelligence company mapping the world\'s interiors at scale.',
     summary: 'NavVis has a combination of hard- and software tech that turns any physical space into a precise digital twin. Our team\'s job was to build a strategy towards "product market fit" and validate our target verticals. Customer research, multiple experiments, and business cases across industries until something stuck. The initial thesis was manufacturing, construction and real estate. Two of them remain a core pillar of NavVis\'s business strategy today.',
-    learning: 'Got a front-row seat to what good leadership actually looks like in practice: a strong team setting direction, aligning stakeholders, and executing. I was part of the execution team, which taught me more than any classroom did before.',
+    learning: 'A front-row seat to what good leadership actually looks like in practice: a strong founding team setting direction, shaping culture, and executing. Being part of this team taught me more than any classroom did before.',
     funFact: 'Joined NavVis at 25 people, left at 200. Three months in, I was sent to a pitch competition and won (I have proof, just ask). Gotta love the start-up onboarding process.',
     prefill: 'What does finding product-market fit actually look like from the inside?',
     pending: false
@@ -1149,8 +1177,8 @@ const MILESTONES = [
     label: 'Zero-to-One',
     preview: 'Built the partnerships function from zero. 20% of company revenue in 18 months.',
     summary: 'e-bot7 needed a partnerships function after Series A. So the founders brought me on to build it: a SaaS partner program spanning value-added, implementation, and referral partners, with a team, an onboarding process, and a partner portal to run it through. Working closely with sales, customer success, and product, the program generated 20% of total company revenue within 18 months. The company was acquired in 2021.',
-    learning: 'First leadership role, no playbook. The lesson: hire good people, cut scope when resources are thin, and build something that genuinely serves the customer rather than running alongside it. Many partner programs get that last part wrong.',
-    funFact: 'Joined the team at peak COVID and got all the pressure of a high-growth startup, with none of the office energy. Anyone interested in another virtual Christmas party?',
+    learning: 'First leadership role, no playbook. The lessons were about hiring good people, prioritizing work, and building a partner program that genuinely serves the customer rather than running alongside it.',
+    funFact: 'Joined the team at peak COVID and got all the pressure of a high-growth startup, with none of the office energy. Does anyone fancy another virtual Christmas party?',
     prefill: 'What does it take to build a partner program that actually drives revenue rather than just looking good on a slide?',
     pending: false
   },
@@ -1180,8 +1208,8 @@ const MILESTONES = [
     year: '2026',
     label: 'New Beginnings',
     preview: 'The next move is deliberate: back inside the machine, not watching from the outside.',
-    summary: 'VC gave me a rare vantage point: hundreds of companies, dozens of founders, patterns that only emerge from that kind of exposure. But my strengths are better deployed inside the machine than observing it. I want to own a problem, build a team around it, and execute. The AI shift is creating opportunities that a good operator can do more with than a good investor. I want to be in the room where it\'s being built, not the one writing the cheque. Early-stage, AI-native startup in Sydney.',
-    learning: 'Five years across operating and investing taught me one thing: the best founders move faster than their uncertainty. That is the mode I want to be back in.',
+    summary: 'VC gave me a rare vantage point: hundreds of companies, dozens of founders, patterns that only emerge from that kind of exposure. But my strengths are better deployed inside the machine than observing it. I want to own a problem, build a team around it, and execute. The AI shift is creating opportunities that a good operator can do more with than a good investor. I want to be in the room where it\'s being built, not the one writing the cheque.',
+    learning: 'Five years across operating and investing taught me that the best founders move faster than their uncertainty. That is the mode I want to be back in.',
     funFact: 'I have been in the Australian PR queue for 13 months and counting. Apparently the government also believes in a long due diligence process before committing.',
     prefill: 'Why leave venture to go back to an operating role?',
     pending: false
