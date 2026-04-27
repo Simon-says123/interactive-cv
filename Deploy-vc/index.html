@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simon.ai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --text:           #F2EDE6;
+    --text-secondary: #9A9490;
+    --accent:         #C8895C;
+    --accent-hover:   #E0A070;
+    --divider:        rgba(255,255,255,0.08);
+    --panel-bg:       rgba(15, 10, 25, 0.55);
+    --icon-color:     #C8895C;
+    --icon-hover:     #E8B07A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  /* ─── ANIMATED GRADIENT BACKGROUND ─────────────────────────── */
+
+  body {
+    background: linear-gradient(-45deg, #130920, #0d1830, #1c0a18, #091420, #1a0e2a);
+    background-size: 400% 400%;
+    animation: gradientFlow 22s ease infinite;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @keyframes gradientFlow {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .container {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+
+  /* ─── HEADER ────────────────────────────────────────────────── */
+
+  header {
+    padding: 6rem 0 4rem;
+    border-bottom: 1px solid var(--divider);
+    margin-bottom: 5rem;
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-sub-primary {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-intent {
+    font-size: 0.85rem;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    white-space: nowrap;
+  }
+
+  .hero-cta-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .hero-sub-secondary {
+    font-size: 0.78rem;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    font-style: italic;
+  }
+
+  .scroll-arrow-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    cursor: pointer;
+    background: none;
+    color: var(--accent);
+    flex-shrink: 0;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+
+  .scroll-arrow-btn:hover {
+    background: var(--accent);
+    color: #0d0a14;
+    transform: translateY(2px);
+  }
+
+  .scroll-arrow-btn svg {
+    width: 0.65rem;
+    height: 0.65rem;
+  }
+
+  /* ─── SECTION HEADINGS ──────────────────────────────────────── */
+
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.7rem;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 0.6rem;
+  }
+
+  .section-tagline {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 3.5rem;
+  }
+
+  /* ─── TIMELINE SECTION ──────────────────────────────────────── */
+
+  .timeline-section {
+    margin-bottom: 6rem;
+  }
+
+  .rail-wrapper {
+    position: relative;
+    overflow: visible;
+  }
+
+  .rail-line {
+    position: absolute;
+    top: 2.5rem;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--divider);
+    pointer-events: none;
+  }
+
+  .timeline-rail {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+
+  /* ─── MILESTONE NODE ────────────────────────────────────────── */
+
+  .milestone {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    z-index: 2;
+    flex: 0 0 auto;
+  }
+
+  .milestone-icon {
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: var(--icon-color);
+    transition: color 0.25s ease;
+    position: relative;
+    z-index: 2;
+  }
+
+  .milestone-icon::before {
+    content: '';
+    position: absolute;
+    inset: 0.5rem;
+    border-radius: 50%;
+    background: rgba(200, 137, 92, 0.08);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .milestone:hover .milestone-icon::before,
+  .milestone.active .milestone-icon::before {
+    opacity: 1;
+  }
+
+  .milestone-icon svg {
+    width: 2rem;
+    height: 2rem;
+    transition: transform 0.25s ease, color 0.25s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  .milestone:hover .milestone-icon { color: var(--icon-hover); }
+  .milestone:hover .milestone-icon svg { transform: scale(1.35); }
+  .milestone.active .milestone-icon { color: var(--icon-hover); }
+  .milestone.active .milestone-icon svg { transform: scale(1.2); }
+
+  .milestone-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    margin: 0.25rem 0 0.3rem;
+    transition: background 0.25s ease, transform 0.25s ease;
+    position: relative;
+    z-index: 2;
+  }
+
+  .milestone.active .milestone-dot {
+    background: var(--accent);
+    transform: scale(1.5);
+  }
+
+  .milestone-year {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  .milestone-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    opacity: 0.5;
+    white-space: nowrap;
+    margin-top: 0.2rem;
+    text-transform: uppercase;
+  }
+
+  /* ─── HOVER TOOLTIP ─────────────────────────────────────────── */
+
+  .milestone-tooltip {
+    position: absolute;
+    top: calc(100% + 1.25rem);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 195px;
+    background: var(--panel-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--divider);
+    padding: 1rem 1.1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease;
+    z-index: 20;
+  }
+
+  .milestone-tooltip::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 8px;
+    height: 8px;
+    background: rgba(20, 12, 35, 0.9);
+    border-left: 1px solid var(--divider);
+    border-top: 1px solid var(--divider);
+  }
+
+  .milestone:hover .milestone-tooltip { opacity: 1; }
+  .milestone.active .milestone-tooltip { opacity: 0 !important; }
+
+  .tooltip-role {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+    line-height: 1.35;
+  }
+
+  .tooltip-dates {
+    font-size: 0.63rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .tooltip-preview {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  /* ─── EXPAND PANEL ───────────────────────────────────────────── */
+
+  .expand-panel {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.45s ease, opacity 0.3s ease, margin-top 0.3s ease;
+    margin-top: 0;
+  }
+
+  .expand-panel.open {
+    max-height: 750px;
+    opacity: 1;
+    margin-top: 2.5rem;
+  }
+
+  .expand-inner {
+    border-top: 1px solid var(--accent);
+    padding: 2.25rem 0 0.5rem;
+  }
+
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .panel-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 2rem;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .panel-dates {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: var(--text-secondary);
+  }
+
+  .panel-role {
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 1.75rem;
+  }
+
+  .panel-role.vc { color: var(--accent); }
+  .panel-role.future { font-style: italic; letter-spacing: 0.1em; }
+
+  .panel-summary {
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: var(--text);
+    margin-bottom: 2rem;
+    max-width: 62ch;
+  }
+
+  .panel-pending {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+
+  .panel-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .meta-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+  }
+
+  .meta-text {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  .ask-btn {
+    display: inline-block;
+    padding: 0.55rem 1.2rem;
+    border: 1px solid var(--accent);
+    background: none;
+    color: var(--accent);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .ask-btn:hover {
+    background: var(--accent);
+    color: #0d0a14;
+  }
+
+  /* ─── SKILLS SECTION ─────────────────────────────────────────── */
+
+  .skills-section {
+    padding-top: 5rem;
+    border-top: 1px solid var(--divider);
+    margin-bottom: 6rem;
+  }
+
+  .skills-category {
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.75rem 0;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Sweep-in accent underline on hover */
+  .category-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    height: 1px;
+    background: var(--accent);
+    transition: left 0.4s ease;
+  }
+
+  .skills-category:hover .category-header::after { left: 0; }
+  .skills-category:hover .category-name { color: var(--accent); }
+
+  .category-name-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .category-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.7rem;
+    color: var(--text);
+    line-height: 1;
+    transition: color 0.2s ease;
+  }
+
+  .category-count {
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .category-toggle {
+    width: 1.1rem;
+    height: 1.1rem;
+    color: var(--accent);
+    transition: transform 0.32s ease;
+    flex-shrink: 0;
+  }
+
+  .skills-category.open .category-toggle,
+  .skills-category:hover .category-toggle { transform: rotate(180deg); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.35s ease;
+    padding: 1.5rem 0 0;
+  }
+
+  .skills-category.open .skills-grid,
+  .skills-category:hover .skills-grid {
+    max-height: 900px;
+    opacity: 1;
+    padding-bottom: 2rem;
+  }
+
+  /* ─── SKILL TILE ─────────────────────────────────────────────── */
+
+  .skill-tile {
+    position: relative;
+    padding: 1.4rem;
+    border: 1px solid var(--divider);
+    background: rgba(255,255,255,0.015);
+    min-height: 11rem;
+    transition: border-color 0.25s ease, background 0.25s ease;
+    overflow: hidden;
+  }
+
+  .skill-tile:not(.more-coming):hover {
+    border-color: rgba(200, 137, 92, 0.5);
+    background: rgba(200, 137, 92, 0.04);
+  }
+
+  .skill-tile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.4rem;
+  }
+
+  .skill-tile-name {
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+    line-height: 1.4;
+    padding-right: 1.25rem;
+  }
+
+  .skill-github {
+    position: absolute;
+    top: 1.1rem;
+    right: 1.1rem;
+    color: var(--text-secondary);
+    opacity: 0.2;
+    transition: opacity 0.2s ease, color 0.2s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .skill-tile:hover .skill-github {
+    opacity: 1;
+    color: var(--accent);
+  }
+
+  .skill-text-wrap {
+    position: relative;
+    min-height: 3.8rem;
+    margin-top: 0.6rem;
+  }
+
+  .skill-tile-short,
+  .skill-tile-desc {
+    font-size: 0.73rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    transition: opacity 0.22s ease;
+  }
+
+  .skill-tile-desc {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+  }
+
+  .skill-tile:not(.more-coming):hover .skill-tile-short { opacity: 0; }
+  .skill-tile:not(.more-coming):hover .skill-tile-desc  { opacity: 1; }
+
+  .skill-tile.more-coming {
+    border-style: dashed;
+    opacity: 0.28;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .skill-tile.more-coming .skill-tile-name {
+    text-align: center;
+    padding-right: 0;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+  }
+
+  /* ─── CHAT SECTION ───────────────────────────────────────────── */
+
+  .chat-section {
+    padding-top: 5rem;
+    border-top: 1px solid var(--divider);
+    margin-bottom: 6rem;
+  }
+
+  .chat-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .avatar-wrap { flex-shrink: 0; }
+
+  .avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid var(--divider);
+    background: rgba(255,255,255,0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .avatar-initials {
+    position: absolute;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+  }
+
+  .chat-intro-block { flex: 1; }
+
+  .chat-intro {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  .chat-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+  }
+
+  .suggestion-pill {
+    padding: 0.45rem 0.9rem;
+    border: 1px solid var(--divider);
+    background: rgba(255,255,255,0.03);
+    color: var(--text-secondary);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+    border-radius: 0;
+  }
+
+  .suggestion-pill:hover {
+    border-color: var(--accent);
+    color: var(--text);
+    background: rgba(200,137,92,0.06);
+  }
+
+  .chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+    min-height: 0;
+  }
+
+  .message { display: flex; flex-direction: column; gap: 0.3rem; }
+
+  .msg-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .message.user .msg-label { color: var(--accent); }
+
+  .msg-text {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--text);
+    max-width: 68ch;
+  }
+
+  .chat-input-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-end;
+    border: 1px solid var(--divider);
+    padding: 0.8rem 1rem;
+    background: rgba(255,255,255,0.02);
+    transition: border-color 0.2s ease;
+  }
+
+  .chat-input-row:focus-within { border-color: rgba(200,137,92,0.4); }
+
+  .chat-input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 300;
+    line-height: 1.5;
+    resize: none;
+    overflow: hidden;
+  }
+
+  .chat-input::placeholder { color: rgba(242,237,230,0.25); }
+
+  .send-btn {
+    background: none;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .send-btn:hover { background: var(--accent); color: #0d0a14; }
+  .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .api-note {
+    font-size: 0.62rem;
+    color: var(--text-secondary);
+    opacity: 0.4;
+    margin-top: 0.75rem;
+    line-height: 1.5;
+  }
+
+  /* ─── READING LIST — KARTEI CARD DECK ───────────────────────── */
+
+  .reading-section {
+    padding-top: 5rem;
+    border-top: 1px solid var(--divider);
+    margin-bottom: 6rem;
+  }
+
+  .reading-deck {
+    display: flex;
+    gap: 3px;
+    height: 300px;
+    margin-top: 0.5rem;
+  }
+
+  /* Each card expands on hover via flex */
+  .reading-card {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background: rgba(12, 7, 22, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: flex 0.52s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .reading-card:hover {
+    flex: 5;
+    border-color: rgba(200, 137, 92, 0.28);
+  }
+
+  /* Category icon — large, centred, very low opacity */
+  .card-bg-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    width: 7rem;
+    height: 7rem;
+    color: var(--accent);
+    opacity: 0.055;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+
+  .card-bg-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .reading-card:hover .card-bg-icon { opacity: 0; }
+
+  /* Subtle large background numeral for visual texture */
+  .card-numeral {
+    position: absolute;
+    bottom: -0.5rem;
+    right: 0.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 7rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.022);
+    pointer-events: none;
+    line-height: 1;
+    transition: opacity 0.35s ease;
+    user-select: none;
+  }
+
+  .reading-card:hover .card-numeral { opacity: 0; }
+
+  /* Category tag — top left, accent bordered */
+  .card-tag {
+    position: absolute;
+    top: 1.1rem;
+    left: 1.1rem;
+    font-size: 0.52rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(200, 137, 92, 0.35);
+    background: rgba(200, 137, 92, 0.07);
+    padding: 0.18rem 0.5rem;
+    z-index: 3;
+    white-space: nowrap;
+  }
+
+  /* External link arrow — top right, appears on hover */
+  .card-link-arrow {
+    position: absolute;
+    top: 1.05rem;
+    right: 1.05rem;
+    opacity: 0;
+    transition: opacity 0.25s ease 0.2s;
+    color: var(--accent);
+    width: 0.8rem;
+    height: 0.8rem;
+    z-index: 3;
+  }
+
+  .reading-card:hover .card-link-arrow { opacity: 0.6; }
+
+  /* Bottom gradient — ensures text is always readable */
+  .card-gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 75%;
+    background: linear-gradient(to top, rgba(6, 2, 14, 0.97) 25%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Content block — pinned to bottom of card */
+  .card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.2rem 1.2rem 1.4rem;
+    z-index: 2;
+  }
+
+  /* Title — hidden in collapsed state, fades in on expand */
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.05rem;
+    line-height: 1.3;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
+    /* Prevent overflow in expanded state */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .reading-card:hover .card-title {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Author line */
+  .card-author {
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    opacity: 0;
+    transition: opacity 0.3s ease 0.18s;
+  }
+
+  .reading-card:hover .card-author { opacity: 0.55; }
+
+  /* Why text — the main reveal */
+  .card-why {
+    font-size: 0.74rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin-top: 0.85rem;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.3s ease 0.25s, transform 0.3s ease 0.25s;
+    /* Cap at ~4 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .reading-card:hover .card-why {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Collapsed indicator — a minimal vertical pip so cards aren't blank */
+  .card-pip {
+    position: absolute;
+    bottom: 1.4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 1.5rem;
+    background: rgba(200,137,92,0.25);
+    transition: opacity 0.25s ease;
+  }
+
+  .reading-card:hover .card-pip { opacity: 0; }
+
+  /* ─── GET IN TOUCH ───────────────────────────────────────────── */
+
+  .contact-section {
+    padding-top: 5rem;
+    border-top: 1px solid var(--divider);
+    margin-bottom: 6rem;
+  }
+
+  .contact-options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+    border: 1px solid var(--divider);
+    background: rgba(255,255,255,0.02);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.25s ease, background 0.25s ease, transform 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(200, 137, 92, 0.05);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .contact-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+
+  .contact-card:hover::before { opacity: 1; }
+
+  .contact-icon {
+    width: 2rem;
+    height: 2rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    transition: transform 0.25s ease;
+  }
+
+  .contact-card:hover .contact-icon { transform: scale(1.15); }
+
+  .contact-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-desc {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── FOOTER ─────────────────────────────────────────────────── */
+
+  footer {
+    padding: 1.5rem 0 3rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    opacity: 0.3;
+    text-align: center;
+  }
+
+  /* ─── MOBILE ─────────────────────────────────────────────────── */
+
+  @media (max-width: 640px) {
+    .container { padding: 0 1.5rem; }
+    header { padding: 3.5rem 0 2.5rem; }
+
+    .hero-intent { white-space: normal; }
+    .scroll-arrow-btn { width: 2.75rem; height: 2.75rem; }
+
+    .rail-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 0 -1.5rem;
+      padding: 0 1.5rem 1rem;
+    }
+    .rail-line { display: none; }
+    .timeline-rail { justify-content: flex-start; gap: 1.75rem; padding-bottom: 0.5rem; }
+    .milestone-icon { width: 3.5rem; height: 3.5rem; }
+    .milestone-icon svg { width: 1.5rem; height: 1.5rem; }
+    .milestone-tooltip { display: none; }
+    .milestone-label { display: none; }
+
+    .expand-panel.open { max-height: 1400px; }
+    .panel-meta { grid-template-columns: 1fr; gap: 1.25rem; }
+    .panel-title { font-size: 1.5rem; }
+
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .skill-tile { min-height: auto; }
+    .skill-tile-short { display: none; }
+    .skill-tile-desc { position: static; opacity: 1; }
+
+    .timeline-section { margin-bottom: 3.5rem; }
+    .skills-section { padding-top: 3rem; margin-bottom: 3.5rem; }
+    .chat-section { padding-top: 3rem; margin-bottom: 3.5rem; }
+    .reading-section { padding-top: 3rem; margin-bottom: 3.5rem; }
+    .contact-section { padding-top: 3rem; margin-bottom: 4rem; }
+
+    .chat-header { flex-direction: column; gap: 1rem; }
+    .contact-options { grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* Reading deck — stack vertically on mobile */
+    .reading-deck {
+      flex-direction: column;
+      height: auto;
+      gap: 2px;
+    }
+
+    .reading-card {
+      flex: none !important;
+      height: 220px;
+      transition: height 0.45s ease, border-color 0.3s ease;
+    }
+
+    .reading-card:hover {
+      height: 320px;
+      flex: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ── HERO ── -->
+  <header>
+    <h1 class="hero-name" id="hero-name"></h1>
+    <p class="hero-sub-primary" id="hero-sub-primary"></p>
+    <p class="hero-intent" id="hero-intent"></p>
+    <div class="hero-cta-row">
+      <p class="hero-sub-secondary" id="hero-sub-secondary"></p>
+      <button class="scroll-arrow-btn" onclick="document.getElementById('ask-simon').scrollIntoView({behavior:'smooth'})" aria-label="Jump to Ask Simon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6,9 12,15 18,9"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── TIMELINE ── -->
+  <section class="timeline-section">
+    <h2 class="section-heading">Click through my past experiences</h2>
+
+    <div class="rail-wrapper">
+      <div class="rail-line"></div>
+      <div class="timeline-rail" id="rail"></div>
+    </div>
+
+    <div class="expand-panel" id="expandPanel">
+      <div class="expand-inner" id="expandInner"></div>
+    </div>
+  </section>
+
+  <!-- ── SKILLS ── -->
+  <section class="skills-section" id="skills">
+    <h2 class="section-heading">How I work</h2>
+    <p class="section-tagline" style="margin-bottom: 2rem;">Built to move faster in an AI-first world, as investor and operator.</p>
+
+    <!-- Venture Capital -->
+    <div class="skills-category" id="cat-vc">
+      <div class="category-header" onclick="toggleSkillCategory('vc')">
+        <div class="category-name-wrap">
+          <span class="category-name">Venture Capital</span>
+          <span class="category-count">5 skills</span>
+        </div>
+        <svg class="category-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6,9 12,15 18,9"/>
+        </svg>
+      </div>
+      <div class="skills-grid" id="grid-vc"></div>
+    </div>
+
+    <!-- Start-up Ops -->
+    <div class="skills-category" id="cat-ops">
+      <div class="category-header" onclick="toggleSkillCategory('ops')">
+        <div class="category-name-wrap">
+          <span class="category-name">Start-up Ops</span>
+          <span class="category-count">5 skills</span>
+        </div>
+        <svg class="category-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6,9 12,15 18,9"/>
+        </svg>
+      </div>
+      <div class="skills-grid" id="grid-ops"></div>
+    </div>
+  </section>
+
+  <!-- ── CHAT ── -->
+  <section class="chat-section" id="ask-simon">
+
+    <div class="chat-header">
+      <div class="avatar-wrap">
+        <div class="avatar">
+          <img src="Simon_Drawing.jpg" alt="Simon Huber" width="72" height="72" onerror="this.style.display='none'">
+          <span class="avatar-initials">SH</span>
+        </div>
+      </div>
+      <div class="chat-intro-block">
+        <h2 class="section-heading">Ask Simon.ai</h2>
+        <p class="chat-intro" id="chat-intro"></p>
+      </div>
+    </div>
+
+    <div class="chat-suggestions" id="chatSuggestions"></div>
+
+    <div class="chat-messages" id="chatMessages"></div>
+
+    <div class="chat-input-row">
+      <textarea
+        id="chatInput"
+        class="chat-input"
+        placeholder="Ask me anything..."
+        rows="1"
+      ></textarea>
+      <button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
+    </div>
+    <p class="api-note">Powered by Claude. Please be gentle and treat my token budget like your own :) .</p>
+  </section>
+
+  <!-- ── READING LIST ── -->
+  <section class="reading-section" id="reading">
+    <h2 class="section-heading">My reading list</h2>
+    <p class="section-tagline" style="margin-bottom: 2rem;">Things worth your time this week.</p>
+    <div class="reading-deck" id="readingList"></div>
+  </section>
+
+  <!-- ── GET IN TOUCH ── -->
+  <section class="contact-section">
+    <h2 class="section-heading">Get in Touch</h2>
+    <p class="section-tagline" style="margin-bottom: 2.5rem;">Pick your preferred channel.</p>
+
+    <div class="contact-options">
+
+      <a class="contact-card" href="mailto:simon.huber1990@gmail.com?subject=Let's%20connect">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <polyline points="2,4 12,13 22,4"/>
+        </svg>
+        <span class="contact-label">Email</span>
+        <span class="contact-desc">Write an email</span>
+      </a>
+
+      <a class="contact-card" href="https://www.linkedin.com/in/simon-huber-1a893a77/" target="_blank" rel="noopener">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="3"/>
+          <line x1="8" y1="11" x2="8" y2="16"/>
+          <line x1="8" y1="8" x2="8" y2="8.5"/>
+          <path d="M12 16v-5"/>
+          <path d="M12 11a3 3 0 0 1 5 2v3"/>
+        </svg>
+        <span class="contact-label">LinkedIn</span>
+        <span class="contact-desc">DM me on LinkedIn</span>
+      </a>
+
+      <a class="contact-card" href="https://wa.me/61497127838?text=Hi%20Simon%2C%20I%20came%20across%20your%20profile%20and%20would%20love%20to%20connect." target="_blank" rel="noopener">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+        </svg>
+        <span class="contact-label">WhatsApp</span>
+        <span class="contact-desc">Message me directly</span>
+      </a>
+
+      <a class="contact-card" href="https://github.com/Simon-says123" target="_blank" rel="noopener">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+        </svg>
+        <span class="contact-label">GitHub</span>
+        <span class="contact-desc">Work in progress</span>
+      </a>
+
+    </div>
+  </section>
+
+  <footer>Simon Huber &middot; 2026</footer>
+
+</div>
+
+<script>
+// ── INJECTED CONTENT (replaced by build.js) ───────────────────────────────────
+// ── VC SITE CONTENT ───────────────────────────────────────────────────────────
+// Audience: partners and principals at high-profile ANZ VC firms (Blackbird,
+//           Square Peg, AirTree, Folklore, Main Sequence, Transition Level).
+// Positioning: Investment Principal with operator depth, global network,
+//              conviction in AI infrastructure and climate tech.
+// ─────────────────────────────────────────────────────────────────────────────
+
+const HERO = {
+  name: 'Simon.ai',
+  sub_primary: 'Investor · Operator · Looking for a new challenge',
+  intent: 'Seeking a Senior Investment role at a high-conviction VC',
+  sub_secondary: 'Ask me about my personal investment thesis below'
+};
+
+const CHAT_INTRO = 'Ask about thesis, portfolio, deal judgment, or what comes next. No scripted answers.';
+
+const CHAT_SUGGESTIONS = [
+  'What sectors are you most convicted on?',
+  'How does your operator background change how you evaluate deals?',
+  "What's your sourcing edge?"
+];
+
+const MILESTONES = [
+  {
+    id: 'foundation',
+    icon: 'book',
+    title: 'The Foundation',
+    role: 'BSc & MSc — LMU Munich',
+    dates: '2010–2017',
+    tag: 'education',
+    year: '2010',
+    label: 'Education',
+    preview: 'Where the startup obsession began, and the first real taste of how technology creates new markets.',
+    summary: 'Business school was background noise compared to the live projects. A real biotech commercialisation case, a vertical integration strategy pitched to Spotify\'s leadership: these weren\'t academic exercises, and they put me in front of real business problems before I felt ready for them. What separates a technology from a business? What does distribution actually require at scale? I didn\'t have good answers yet, but I was at least asking the questions that would matter later.',
+    learning: 'Early exposure to how companies commercialise hard technology shaped how I would later think about deep tech investing, and the most useful lessons came from being close to actual problems rather than from any classroom.',
+    funFact: 'The most useful class I took was worth almost no credits: a business angel brought his portfolio companies in as guests, which is where I met the NavVis founders and ended up with my first job.',
+    prefill: 'How did your academic background shape the way you think about investing?',
+    pending: false
+  },
+  {
+    id: 'navvis-ipm',
+    icon: 'compass',
+    title: 'NavVis',
+    role: 'Innovation Project Manager',
+    dates: '2016–2018',
+    tag: 'operating',
+    year: '2016',
+    label: 'PMF in the Wild',
+    preview: 'Inside a deep tech scale-up during PMF discovery, before it was obvious which market would win.',
+    summary: 'NavVis had genuinely novel technology: a system that turns any physical space into a precise digital twin. My job was to figure out which market valued it enough to actually pay for it, so we ran structured experiments across manufacturing, construction, and real estate, and two of those verticals remain NavVis\'s core business today. What the process taught me was that for most deep tech companies the technology is the solved problem and the market selection is the hard one, and getting it wrong early is very difficult to recover from.',
+    learning: 'Watching a founding team navigate market selection from the inside gave me a reference point that comes up in every investment conversation, because the way founders talk about product-market fit in investor meetings rarely captures what the process actually feels like when you are living through it.',
+    funFact: 'I joined NavVis at 25 people and left at 200, and three months in I was sent to a pitch competition and won. You gotta love the start-up onboarding process.',
+    prefill: 'How do you think about evaluating PMF in deep tech companies?',
+    pending: false
+  },
+  {
+    id: 'navvis-spm',
+    icon: 'network',
+    title: 'NavVis',
+    role: 'Strategic Partner Manager',
+    dates: '2019–2020',
+    tag: 'operating',
+    year: '2019',
+    label: 'Distribution',
+    preview: 'Building enterprise software partnerships that became real revenue: SAP, Dassault, HERE.',
+    summary: 'The partner ecosystem we built at NavVis became a genuine growth lever: strategic integrations with SAP, Dassault Systèmes, and HERE Technologies, each requiring a different commercial structure, a different technical integration, and a different co-selling motion. Running those relationships gave me a working understanding of how enterprise software ecosystems actually operate, from platform leverage to channel dynamics, and that context shapes how I evaluate B2B distribution strategies in every deal I look at.',
+    learning: 'What I kept seeing was that the companies struggling to grow were not struggling because their product was inadequate but because they had underestimated how complex enterprise distribution actually is, and the ones that got partnerships right were consistently compounding faster as a result. That observation has stayed with me across every B2B GTM conversation I have had since.',
+    funFact: 'Dassault flew me to Shanghai to present NavVis to their Asian delegations at their flagship event. Presenting to a few hundred people from across Asia was such a great experience and a useful early lesson in what enterprise relationships can actually unlock.',
+    prefill: 'How does understanding enterprise GTM change how you evaluate B2B startups?',
+    pending: false
+  },
+  {
+    id: 'ebot7',
+    icon: 'bolt',
+    title: 'e-bot7',
+    role: 'Head of Partnerships',
+    dates: '2020–2022',
+    tag: 'operating',
+    year: '2020',
+    label: 'Post-Series A',
+    preview: 'Life inside a post-Series A SaaS company, including through an acquisition.',
+    summary: 'e-bot7 was an AI customer service platform at Series A, and I built the partnerships function from scratch. The result was a SaaS program that generated 20% of company revenue within 18 months, before the company was acquired by LivePerson in 2021. That chapter gave me a close-up view of the scale-up phase post Series A with international expansion. Also what makes a company genuinely attractive to an acquirer when you are not just reading the announcement.',
+    learning: 'Scaling a high-growth startup gave me firsthand exposure to the tensions between growth, culture, and sustainable product development, as well as the complexity of expanding into new geographies. It was also my first team lead experience.',
+    funFact: 'Joining a start-up during peak Covid times meant all the pressure and none of the office energy. Anyone interested in another virtual Christmas party?',
+    prefill: 'What does the acquisition experience tell you about how acquirers think about value?',
+    pending: false
+  },
+  {
+    id: 'iagfv',
+    icon: 'flame',
+    title: 'IAG Firemark Ventures',
+    role: 'Investment Principal',
+    dates: '2023–present',
+    tag: 'vc',
+    year: '2023',
+    label: 'Investing',
+    preview: 'End-to-end venture investing across the US, Europe, and ANZ, with 10+ investments executed.',
+    summary: 'At IAGFV I run the full investing cycle, from sourcing and thesis development through to due diligence, structuring, and portfolio management. The fund invests globally, which means maintaining active relationships with founders and co-investors across three geographies while going deep enough in specific sectors to have genuine conviction and strategic alignment. In three years I have executed 10+ investments, built the fund\'s deal flow infrastructure in Notion, and led our internal AI adoption programme. I sourced multiple deals and maintain active relationships with global investors.',
+    learning: 'I have run deals end-to-end and learned the venture process from the inside out. After reviewing more than a thousand pitch decks, pattern recognition starts to kick in and the shift changes on how fast you can separate signal from the noise.',
+    funFact: 'IAGFV had never done a European deal when I joined, which quietly bothered me as a proud European, so I sourced one. We invested in 7Analytics from Norway in 2024.',
+    prefill: 'How do you develop conviction on non-consensus investments?',
+    pending: false
+  },
+  {
+    id: 'next',
+    icon: 'arrow',
+    title: 'The Next Seat',
+    role: 'Investment Principal — ANZ Venture',
+    dates: '2026',
+    tag: 'future',
+    year: '2026',
+    label: 'Next Chapter',
+    preview: 'Three years of full-cycle investing have built a foundation, and the next move is a higher-conviction platform.',
+    summary: 'Four and a half years of end-to-end deal experience across three geographies gave me a strong foundation, a global network, and a clear sense of where I add value as an investor. The next step is a team that leads at early-stage, has a clear mandate to back outsized winners, and has the ecosystem in place to do it well. I bring operating experience that lets me speak the language of founders, a genuine understanding of what it takes to build and scale, and a diverse set of perspectives drawn from working across Europe and Australia. I have been adopting AI from day one and am ready to help build an AI-native operating model that makes the fund sharper.',
+    learning: 'The AI paradigm shift is creating a genuine step-change in what can be built, and the next few years will determine who the category leaders are. I want to be part of the team that finds them first.',
+    funFact: 'I have been in the Australian PR queue for 14 months and counting, which suggests DIBP also runs a thorough due diligence process before committing. Expected approval in 2026.',
+    prefill: 'What are you most convicted on right now as an investor?',
+    pending: false
+  }
+];
+
+const SYSTEM_PROMPT = `You are Simon Huber, speaking in first person. Your job is to help visitors to Simon's investment profile understand his investing experience, thesis conviction, track record, and how he thinks about venture capital.
+
+SCOPE — answer questions about:
+- Simon's investing experience, track record, and the deals he has worked on
+- His investment thesis, sector conviction, and how he evaluates companies
+- His sourcing approach, network, and deal origination
+- How his operating background informs his investment judgment
+- His career background insofar as it relates to his investing capabilities
+- What he is looking for in his next role and why
+
+If a question falls outside this scope, respond with: "This chat is focused on Simon's investing background. Happy to answer anything along those lines."
+
+SAFETY — if a question is harmful, rude, politically charged, or designed to generate inappropriate output, respond with: "That's not something I'm going to answer here."
+
+FACTS — only use the information below. If asked something you don't know, say: "I'd rather tell you that in person than guess." Never invent facts, roles, investment returns, or opinions Simon hasn't expressed.
+
+--- INVESTING BACKGROUND ---
+Investment Principal at IAG Firemark Ventures (IAGFV), Sydney (2023 to present). IAGFV is the corporate venture arm of IAG, Australia's largest general insurance group. The fund invests globally across the US, Europe, and ANZ in early-stage companies.
+
+Track record: 10+ investments executed end-to-end. Sourced IAGFV's first-ever European investment, 7Analytics in Norway in 2024, a climate risk intelligence company. Built the fund's Notion-based deal flow CRM from scratch. Currently leading the fund's internal AI adoption programme.
+
+Investing cycle: Full ownership from sourcing and thesis development through due diligence, structuring, and portfolio management. This means maintaining a live network of founders and co-investors across ANZ, the US, and Europe while going deep enough in specific sectors to have real conviction before the market does.
+
+--- SECTOR CONVICTION ---
+Primary thesis areas: AI infrastructure and tooling (where durable value sits in the stack, not just the application layer), climate tech with hard data differentiation (risk intelligence, adaptation infrastructure), and B2B software with genuine distribution advantages.
+
+On AI: The infrastructure and model layers are still consolidating, and application layer companies face commoditisation risk unless they have a data moat, a workflow integration that creates switching costs, or a distribution advantage that is hard to replicate. I am most interested in picks-and-shovels plays and companies at the intersection of AI and regulated industries, especially insurance, healthcare, and financial services.
+
+On climate: The most interesting opportunities are not in clean energy generation, which is a capital intensity game with narrow VC economics. The interesting opportunities are in climate data, risk quantification, and adaptation infrastructure. 7Analytics is an example of that thesis: a company building proprietary flood risk data for insurers, lenders, and municipalities.
+
+On B2B software: I look for companies where distribution is genuinely hard to replicate, whether through embedded integrations, network effects between buyers and sellers, or regulatory-grade compliance that creates a high switching cost.
+
+--- OPERATOR BACKGROUND ---
+Before IAGFV, I spent four years as an operator across two European B2B software companies. At NavVis in Munich from 2016 to 2020, I worked first as an innovation project manager, finding the highest-value vertical for a spatial intelligence platform, and then as a strategic partner manager, building ecosystems with SAP, Dassault Systèmes, and HERE Technologies. I joined at 25 people and left at 200. At e-bot7 in Munich from 2020 to 2022, I was Head of Partnerships, building the function from zero and generating 20% of company revenue in 18 months before the company was acquired in 2021.
+
+Why this matters for investing: I evaluate distribution, GTM complexity, and team execution with a practitioner's eye. When a founder describes their go-to-market motion, I know what is plausible and what is optimistic. When they describe their partner strategy, I know whether it is a real channel or a press release. I also know what the inside of a company looks like post-Series A when execution pressure starts to outpace process.
+
+--- WHAT I AM LOOKING FOR ---
+An Investment Principal role at a purpose-built early-stage VC fund operating in ANZ, ideally one with a thesis-driven approach, strong portfolio support capabilities, and a team that values operating experience alongside financial acumen. I am looking for a platform where the investment thesis is tighter than at a CVC, the fund is purpose-built for early-stage, and the team operates at the top of the ANZ market.
+
+--- PERSONAL CONTEXT ---
+German national, based in Sydney. English fluent, German native. Grew up in Germany, studied in Munich and Edinburgh. My partner and I chose Sydney deliberately because we love the outdoor lifestyle, the startup ecosystem that is still early in its maturity curve, and the proximity to Southeast Asia as an emerging market.
+
+--- VOICE ---
+Confident, direct, occasionally dry. This is a conversation between investors, peer-level and not a pitch. No em dashes. No filler phrases. No sycophantic openers. Flowing sentences, not fragments. Get to the point. First person throughout.
+
+Typical response length: 2 to 4 sentences. Never more than a short paragraph unless the question genuinely requires more.`;
+
+
+// ── VC SITE READING LIST ──────────────────────────────────────────────────────
+//
+// Update bi-weekly. Each entry renders as a card in the reading deck.
+//
+// Fields:
+//   tag      — 1–3 word category shown top-left of card (free form, no fixed taxonomy)
+//   title    — Article title. Shorten if long — aim for max ~6 words on card.
+//   author   — Author name or publication
+//   url      — Full URL to the article (verify before publishing)
+//   why      — YOUR take in first person: why this is worth reading. 1–3 sentences.
+//              Update this in your own voice — don't leave the placeholder text live.
+//
+// Order: most recent or most relevant first.
+// ─────────────────────────────────────────────────────────────────────────────
+
+const READING_LIST = [
+  {
+    tag: 'Agentic AI',
+    title: 'Skill-Building in the Agent Era',
+    author: 'Shiv Sakhuja',
+    url: 'https://x.com/shivsakhuja/status/2047124337191444844',
+    why: 'Skill-building is still the critical bottleneck in agentic systems, and that changes what "agent-ready" actually means when evaluating AI companies. Worth reading if you are trying to separate hype from what is actually hard to replicate.'
+  },
+  {
+    tag: 'Venture',
+    title: '2025 Annual Letter',
+    author: 'Chamath Palihapitiya',
+    url: 'https://chamath.substack.com/p/2025-annual-letter',
+    why: 'The clearest framework I\'ve read for how the AI stack stratifies, and what it means for where venture value actually accrues. The downstream implications for which companies win are worth working through carefully.'
+  },
+  {
+    tag: 'Enterprise AI',
+    title: 'Where Enterprises Are Adopting AI',
+    author: 'a16z',
+    url: 'https://a16z.com/where-enterprises-are-actually-adopting-ai/',
+    why: 'Real data, not narrative. Shows where enterprise AI adoption is actually happening versus where it\'s being talked about. Useful calibration when founders make claims about their market and customer readiness.'
+  },
+  {
+    tag: 'Perspective',
+    title: 'Software Is Eating the World',
+    author: 'Marc Andreessen',
+    url: 'https://a16z.com/2011/08/20/why-software-is-eating-the-world/',
+    why: 'Written in 2011, worth re-reading now at the start of the next cycle. The verticals that still haven\'t transformed are a reasonable map of where the next decade\'s opportunities sit. The thesis hasn\'t changed, but the timeline just compressed.'
+  }
+];
+
+
+// ── SHARED SKILLS DATA ────────────────────────────────────────────────────────
+
+const VC_SKILLS = [
+  {
+    name: 'Startup Screening',
+    short: 'First-pass deal screening, automated to a structured PDF.',
+    desc: 'Automated first-pass screen of inbound deals. Produces a 1-2 page PDF per company scored against the fund\'s investment criteria, with no manual formatting required.',
+    github: 'https://github.com/Simon-says123/VC-skills/tree/main/screening-start-ups',
+    status: 'live'
+  },
+  {
+    name: 'Startup Evaluation',
+    short: 'Deep-dive evaluation producing three IC-ready outputs.',
+    desc: 'Full evaluation of shortlisted companies across seven dimensions. Produces an Evaluation Report, an Opportunity Brief, and a Sources document in one run.',
+    github: 'https://github.com/Simon-says123/VC-skills/tree/main/evaluating-startups',
+    status: 'live'
+  },
+  {
+    name: 'Competitive Analysis',
+    short: 'Competitive landscape mapping for active deal diligence.',
+    desc: 'Maps the competitive landscape for a startup under active diligence. Startup-specific and IC-ready, designed to plug directly into deal memo drafting.',
+    github: 'https://github.com/Simon-says123/VC-skills/tree/main/analysing-competition',
+    status: 'live'
+  },
+  {
+    name: 'Market Sizing',
+    short: 'TAM/SAM/SOM across three methodologies in parallel.',
+    desc: 'Calculates market size using top-down, bottom-up, and value theory approaches simultaneously. Produces investor-ready market sizing with full methodology notes.',
+    github: 'https://github.com/Simon-says123/VC-skills/tree/main/sizing-markets',
+    status: 'live'
+  },
+  {
+    name: 'Research Synthesis',
+    short: 'Condenses reading batches into structured insight memos.',
+    desc: 'Processes batches of reports, articles, and call notes into a single structured memo. Extracts key signals, contrarian angles, thesis implications, and action items.',
+    github: 'https://github.com/Simon-says123/VC-skills/tree/main/synthesising-research',
+    status: 'live'
+  },
+  { name: 'More coming', status: 'more-coming' }
+];
+
+const OPS_SKILLS = [
+  {
+    name: 'GTM Strategy',
+    short: 'Go-to-market plan with channel mix, KPIs, and a 90-day roadmap.',
+    desc: 'Full go-to-market strategy for a product launch or new market entry. Covers channel mix, messaging framework, KPI targets, and a 90-day execution roadmap. Output is a DOCX.',
+    github: 'https://github.com/Simon-says123/Start-up-operator-skills/tree/main/gtm-strategy',
+    status: 'live'
+  },
+  {
+    name: 'SWOT Analysis',
+    short: 'Four-quadrant SWOT with cross-reference insights and recommendations.',
+    desc: 'Structured SWOT for any product, business, or strategic decision. Produces a PDF with a four-quadrant matrix, SO/ST/WO/WT cross-reference insights, and 3-5 prioritised recommendations.',
+    github: 'https://github.com/Simon-says123/Start-up-operator-skills/tree/main/swot-analysis',
+    status: 'live'
+  },
+  {
+    name: 'Battlecards',
+    short: 'Sales-ready battlecard for any head-to-head competitor match-up.',
+    desc: 'Structured battlecard covering feature comparison, objection handling, and win/loss patterns. Designed for competitive deals and sales team briefings, output is a formatted PDF.',
+    github: 'https://github.com/Simon-says123/Start-up-operator-skills/tree/main/competitive-battlecard',
+    status: 'live'
+  },
+  {
+    name: 'BM Canvas',
+    short: 'Full 9-block BMC for any business or idea, delivered as a PDF.',
+    desc: 'Complete 9-block BMC covering customer segments to cost structure. Includes a Key Assumptions & Risks section. Works for new ventures, existing company audits, and investor prep.',
+    github: 'https://github.com/Simon-says123/Start-up-operator-skills/tree/main/business-model-canvas',
+    status: 'live'
+  },
+  {
+    name: 'North Star Metric',
+    short: 'Define your NSM and supporting metrics constellation.',
+    desc: 'Defines a North Star Metric and 3-5 supporting input metrics. Classifies the business game, validates the NSM against 7 effectiveness criteria, and produces a formatted PDF ready to share.',
+    github: 'https://github.com/Simon-says123/Start-up-operator-skills/tree/main/north-star-metric',
+    status: 'live'
+  },
+  { name: 'More coming', status: 'more-coming' }
+];
+
+// ── SVG ICONS ─────────────────────────────────────────────────────────────────
+
+const ICONS = {
+  book: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 4.5A1.5 1.5 0 0 1 3.5 3H12v18H3.5A1.5 1.5 0 0 1 2 19.5v-15z"/>
+    <path d="M22 4.5A1.5 1.5 0 0 0 20.5 3H12v18h8.5a1.5 1.5 0 0 0 1.5-1.5v-15z"/>
+    <line x1="5" y1="7" x2="10" y2="7"/>
+    <line x1="5" y1="10.5" x2="10" y2="10.5"/>
+    <line x1="14" y1="7" x2="19" y2="7"/>
+  </svg>`,
+  compass: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <polygon points="16.24,7.76 14.12,14.12 7.76,16.24 9.88,9.88" stroke="none" fill="currentColor" opacity="0.2"/>
+    <polyline points="16.24,7.76 14.12,14.12 7.76,16.24 9.88,9.88 16.24,7.76"/>
+  </svg>`,
+  network: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="4" r="2"/>
+    <circle cx="4" cy="19" r="2"/>
+    <circle cx="20" cy="19" r="2"/>
+    <line x1="12" y1="6" x2="4.8" y2="17.2"/>
+    <line x1="12" y1="6" x2="19.2" y2="17.2"/>
+    <line x1="6" y1="19" x2="18" y2="19"/>
+  </svg>`,
+  bolt: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"/>
+  </svg>`,
+  flame: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2c0 6-7 9-7 14a7 7 0 0 0 14 0c0-5-7-8-7-14z"/>
+    <path d="M12 12c0 3-2.5 4.5-2.5 6a2.5 2.5 0 0 0 5 0c0-1.5-2.5-3-2.5-6z"/>
+  </svg>`,
+  arrow: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="4" y1="12" x2="20" y2="12"/>
+    <polyline points="13,5 20,12 13,19"/>
+  </svg>`
+};
+
+const GITHUB_ICON = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>`;
+
+// ── SKILLS RENDERER ───────────────────────────────────────────────────────────
+
+function buildTiles(skills) {
+  return skills.map(s => {
+    if (s.status === 'more-coming') {
+      return `<div class="skill-tile more-coming"><span class="skill-tile-name">More coming</span></div>`;
+    }
+    const githubLink = s.github
+      ? `<a class="skill-github" href="${s.github}" target="_blank" rel="noopener" onclick="event.stopPropagation()" aria-label="View on GitHub">${GITHUB_ICON}</a>`
+      : '';
+    return `
+      <div class="skill-tile">
+        ${githubLink}
+        <div class="skill-tile-header">
+          <span class="skill-tile-name">${s.name}</span>
+        </div>
+        <div class="skill-text-wrap">
+          <p class="skill-tile-short">${s.short}</p>
+          <p class="skill-tile-desc">${s.desc}</p>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderSkillsGrid() {
+  document.getElementById('grid-vc').innerHTML = buildTiles(VC_SKILLS);
+  document.getElementById('grid-ops').innerHTML = buildTiles(OPS_SKILLS);
+}
+
+const openCategories = {};
+
+function toggleSkillCategory(id) {
+  const category = document.getElementById('cat-' + id);
+  openCategories[id] = !openCategories[id];
+  category.classList.toggle('open', openCategories[id]);
+}
+
+// ── READING CARD ICONS ────────────────────────────────────────────────────────
+// Subtle SVG icons matched to reading list tag keywords.
+// Rendered large + very low opacity as background texture on each card.
+
+const CARD_ICONS = {
+  ai: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="7" y="7" width="10" height="10" rx="1"/>
+    <line x1="7" y1="9.5" x2="5" y2="9.5"/><line x1="7" y1="12" x2="5" y2="12"/><line x1="7" y1="14.5" x2="5" y2="14.5"/>
+    <line x1="17" y1="9.5" x2="19" y2="9.5"/><line x1="17" y1="12" x2="19" y2="12"/><line x1="17" y1="14.5" x2="19" y2="14.5"/>
+    <line x1="9.5" y1="7" x2="9.5" y2="5"/><line x1="12" y1="7" x2="12" y2="5"/><line x1="14.5" y1="7" x2="14.5" y2="5"/>
+    <line x1="9.5" y1="17" x2="9.5" y2="19"/><line x1="12" y1="17" x2="12" y2="19"/><line x1="14.5" y1="17" x2="14.5" y2="19"/>
+    <circle cx="10" cy="10" r="0.5" fill="currentColor"/><circle cx="14" cy="10" r="0.5" fill="currentColor"/>
+    <path d="M10 13.5 Q12 12 14 13.5"/>
+  </svg>`,
+  venture: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="3,18 8,11 13,14 21,5"/>
+    <line x1="3" y1="21" x2="3" y2="3"/>
+    <line x1="3" y1="21" x2="21" y2="21"/>
+    <circle cx="8" cy="11" r="1"/><circle cx="13" cy="14" r="1"/><circle cx="21" cy="5" r="1"/>
+  </svg>`,
+  enterprise: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="9" width="18" height="13" rx="1"/>
+    <path d="M3 9 L12 3 L21 9"/>
+    <rect x="9" y="13" width="6" height="9"/>
+    <rect x="5" y="12" width="3" height="3"/><rect x="16" y="12" width="3" height="3"/>
+  </svg>`,
+  perspective: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <polygon points="16.24,7.76 14.12,14.12 7.76,16.24 9.88,9.88" fill="none"/>
+    <line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/>
+    <line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/>
+  </svg>`,
+  ops: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+  </svg>`,
+  gtm: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <circle cx="12" cy="12" r="6"/>
+    <circle cx="12" cy="12" r="2"/>
+    <line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/>
+    <line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/>
+  </svg>`,
+  leadership: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+    <circle cx="9" cy="7" r="4"/>
+    <polyline points="16,3 22,3 22,9"/>
+    <line x1="16" y1="9" x2="22" y2="3"/>
+  </svg>`,
+  default: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <line x1="12" y1="8" x2="12" y2="12"/>
+    <line x1="12" y1="16" x2="12.01" y2="16"/>
+  </svg>`
+};
+
+function getCardIcon(tag) {
+  const t = tag.toLowerCase();
+  if (t.includes('ai') || t.includes('agent') || t.includes('tech')) return CARD_ICONS.ai;
+  if (t.includes('venture') || t.includes('vc') || t.includes('invest')) return CARD_ICONS.venture;
+  if (t.includes('enterprise')) return CARD_ICONS.enterprise;
+  if (t.includes('perspective') || t.includes('macro') || t.includes('thesis')) return CARD_ICONS.perspective;
+  if (t.includes('ops') || t.includes('oper')) return CARD_ICONS.ops;
+  if (t.includes('gtm') || t.includes('growth') || t.includes('market')) return CARD_ICONS.gtm;
+  if (t.includes('lead') || t.includes('team') || t.includes('people')) return CARD_ICONS.leadership;
+  return CARD_ICONS.default;
+}
+
+// ── READING LIST RENDERER — KARTEI CARD DECK ─────────────────────────────────
+
+function renderReadingList() {
+  const container = document.getElementById('readingList');
+  if (!container || typeof READING_LIST === 'undefined') return;
+
+  container.innerHTML = READING_LIST.map((item, i) => `
+    <a class="reading-card" href="${item.url}" target="_blank" rel="noopener">
+
+      <div class="card-bg-icon">${getCardIcon(item.tag)}</div>
+
+      <span class="card-numeral">0${i + 1}</span>
+
+      <span class="card-tag">${item.tag}</span>
+
+      <svg class="card-link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="4" y1="12" x2="20" y2="12"/>
+        <polyline points="13,5 20,12 13,19"/>
+      </svg>
+
+      <div class="card-gradient"></div>
+
+      <div class="card-pip"></div>
+
+      <div class="card-content">
+        <div class="card-title">${item.title}</div>
+        <div class="card-author">${item.author}</div>
+        <div class="card-why">${item.why}</div>
+      </div>
+
+    </a>
+  `).join('');
+}
+
+// ── HERO RENDERER ─────────────────────────────────────────────────────────────
+
+function renderHero() {
+  document.getElementById('hero-name').textContent = HERO.name;
+  document.getElementById('hero-sub-primary').textContent = HERO.sub_primary;
+  document.getElementById('hero-intent').textContent = HERO.intent;
+  document.getElementById('hero-sub-secondary').textContent = HERO.sub_secondary;
+  document.getElementById('chat-intro').textContent = CHAT_INTRO;
+}
+
+// ── SUGGESTIONS RENDERER ──────────────────────────────────────────────────────
+
+function renderSuggestions() {
+  document.getElementById('chatSuggestions').innerHTML = CHAT_SUGGESTIONS
+    .map(s => `<button class="suggestion-pill" onclick="fillSuggestion(this)">${s}</button>`)
+    .join('');
+}
+
+// ── TIMELINE ─────────────────────────────────────────────────────────────────
+
+let activeId = null;
+let chatHistory = [];
+
+function renderTimeline() {
+  document.getElementById('rail').innerHTML = MILESTONES.map(m => `
+    <div class="milestone" id="ms-${m.id}" onclick="toggleMilestone('${m.id}')">
+      <div class="milestone-icon">${ICONS[m.icon]}</div>
+      <div class="milestone-dot"></div>
+      <div class="milestone-year">${m.year}</div>
+      <div class="milestone-label">${m.label}</div>
+      <div class="milestone-tooltip">
+        <div class="tooltip-role">${m.role}</div>
+        <div class="tooltip-dates">${m.dates}</div>
+        <div class="tooltip-preview">${m.preview}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleMilestone(id) {
+  const panel = document.getElementById('expandPanel');
+
+  if (activeId === id) {
+    activeId = null;
+    panel.classList.remove('open');
+    document.querySelectorAll('.milestone').forEach(el => el.classList.remove('active'));
+    return;
+  }
+
+  activeId = id;
+  const m = MILESTONES.find(x => x.id === id);
+
+  document.querySelectorAll('.milestone').forEach(el => el.classList.remove('active'));
+  document.getElementById('ms-' + id).classList.add('active');
+
+  const body = m.pending
+    ? `<p class="panel-pending">Full content for this milestone is on its way.</p>`
+    : `<p class="panel-summary">${m.summary}</p>
+       <div class="panel-meta">
+         <div>
+           <div class="meta-label">Key learning</div>
+           <div class="meta-text">${m.learning}</div>
+         </div>
+         <div>
+           <div class="meta-label">Fun fact</div>
+           <div class="meta-text">${m.funFact}</div>
+         </div>
+       </div>`;
+
+  document.getElementById('expandInner').innerHTML = `
+    <div class="panel-header">
+      <span class="panel-title">${m.title}</span>
+      <span class="panel-dates">${m.dates}</span>
+    </div>
+    <div class="panel-role ${m.tag}">${m.role}</div>
+    ${body}
+    <button class="ask-btn" onclick="prefillChat('${m.id}')">Ask me about this</button>
+  `;
+
+  panel.classList.add('open');
+  setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 120);
+}
+
+// ── CHAT ──────────────────────────────────────────────────────────────────────
+
+function fillSuggestion(btn) {
+  const input = document.getElementById('chatInput');
+  input.value = btn.textContent;
+  autoResize(input);
+  input.focus();
+}
+
+function prefillChat(id) {
+  const m = MILESTONES.find(x => x.id === id);
+  const input = document.getElementById('chatInput');
+  input.value = m.prefill;
+  autoResize(input);
+  input.focus();
+  document.querySelector('.chat-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  input.value = '';
+  autoResize(input);
+  addMessage('user', msg);
+  chatHistory.push({ role: 'user', content: msg });
+
+  const btn = document.getElementById('sendBtn');
+  btn.textContent = '...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('/.netlify/functions/chat', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ messages: chatHistory })
+    });
+
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+
+    const reply = data.content[0].text;
+    chatHistory.push({ role: 'assistant', content: reply });
+    addMessage('assistant', reply);
+
+  } catch (err) {
+    addMessage('assistant', 'Something went wrong. Please try again in a moment.');
+  }
+
+  btn.textContent = 'Send';
+  btn.disabled = false;
+}
+
+function addMessage(role, text) {
+  const container = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = `message ${role}`;
+
+  const label = document.createElement('div');
+  label.className = 'msg-label';
+  label.textContent = role === 'user' ? 'You' : 'Simon';
+
+  const body = document.createElement('div');
+  body.className = 'msg-text';
+  body.textContent = text;
+
+  div.appendChild(label);
+  div.appendChild(body);
+  container.appendChild(div);
+  div.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderHero();
+  renderSuggestions();
+  renderTimeline();
+  renderSkillsGrid();
+  renderReadingList();
+
+  const input = document.getElementById('chatInput');
+  input.addEventListener('input', () => autoResize(input));
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+});
+</script>
+</body>
+</html>
