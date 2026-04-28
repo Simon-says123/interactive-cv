@@ -1,6 +1,11 @@
-[build]
-  command = "node source/build.js"
-
-# Publish directory and functions are set per-site in the Netlify dashboard:
-#   Operator site  →  publish: Deploy-operator   functions: Deploy-operator/netlify/functions
-#   VC site        →  publish: Deploy-vc          functions: Deploy-vc/netlify/functions
+# Build settings are managed per-site in the Netlify dashboard (two-site monorepo).
+#
+# Operator site:
+#   Build command:      node source/build.js
+#   Publish directory:  Deploy-operator
+#   Functions:          Deploy-operator/netlify/functions
+#
+# VC site:
+#   Build command:      node source/build.js
+#   Publish directory:  Deploy-vc
+#   Functions:          Deploy-vc/netlify/functions
