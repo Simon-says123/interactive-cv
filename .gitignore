@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+
+# Working files — not needed in repo
+Resources/
+content.md
+design.md
+deploy-guide.md
+instructions.md
+interactive-cv_draft-v2.html
