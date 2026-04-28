@@ -14,11 +14,7 @@ const HERO = {
 
 const CHAT_INTRO = 'Ask about thesis, portfolio, deal judgment, or what comes next. No scripted answers.';
 
-const CHAT_SUGGESTIONS = [
-  'What sectors are you most convicted on?',
-  'How does your operator background change how you evaluate deals?',
-  "What's your sourcing edge?"
-];
+const CHAT_SUGGESTIONS = [];
 
 const MILESTONES = [
   {

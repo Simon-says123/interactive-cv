@@ -12,11 +12,7 @@ const HERO = {
 
 const CHAT_INTRO = 'Ask about any role, decision, pivot, or chapter. The honest answers are in here somewhere.';
 
-const CHAT_SUGGESTIONS = [
-  'Why leave the operating side for VC?',
-  'What is a project you are most proud of?',
-  'What are you looking for next?'
-];
+const CHAT_SUGGESTIONS = [];
 
 const MILESTONES = [
   {
