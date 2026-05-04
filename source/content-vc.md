@@ -34,9 +34,9 @@ year: 2010
 label: Education
 pending: false
 preview: Where the startup obsession began, and the first real taste of how technology creates new markets.
-summary: Business school was background noise compared to the live projects. A real biotech commercialisation case, a vertical integration strategy pitched to Spotify's leadership: these weren't academic exercises, and they put me in front of real business problems before I felt ready for them. What separates a technology from a business? What does distribution actually require at scale? I didn't have good answers yet, but I was at least asking the questions that would matter later.
-learning: Early exposure to how companies commercialise hard technology shaped how I would later think about deep tech investing, and the most useful lessons came from being close to actual problems rather than from any classroom.
-funFact: The most useful class I took was worth almost no credits: a business angel brought his portfolio companies in as guests, which is where I met the NavVis founders and ended up with my first job.
+summary: LMU's business and innovation program put me close to the startup ecosystem at a point when I was still figuring out what that world actually looked like from the inside. The classes I remember most weren't the theory-heavy ones but the ones where we built a real business plan for a spin-off or pitched growth strategies to Spotify's leadership team. Fun times! 
+learning: By trying to get as much exposure to the start-up ecosystem, I also got to know the energy of that ecosystem first-hand. This has been a key driver ever since to build my career in and around start-ups.
+funFact: The most useful class I took was worth almost no credits: a business angel brought his portfolio companies in as guests, which is where I met the NavVis founders and ended up with my first start-up job later on.
 prefill: How did your academic background shape the way you think about investing?
 
 ## MILESTONE: senovo
@@ -50,9 +50,9 @@ year: 2015
 label: Building Conviction
 pending: false
 preview: My first real exposure to venture; what it takes to back a company, and what it takes to build one.
-summary: Senovo is a Munich-based early-stage B2B SaaS fund with a strong track record; Parloa is one of their portfolio companies. I came in as an intern and stayed to become an analyst, which at a fund that size means you end up close to everything. We invested in Quantilope during my time there, and I was involved in the deal: the sourcing, the diligence, the conversations with founders. Working directly with the partners in a small team meant there was no buffer between me and how investment decisions actually got made, which is about as good an education as you can get at that stage.
-learning: What venture taught me early was how genuinely difficult it is to build a company, not in a romanticised way but in a granular, operational sense. The more I saw, the more I felt I had a gap: I understood the investment side in theory but had never been part of the thing I was being asked to evaluate. That instinct was what took me onto the operator track.
-funFact: Still close with the Senovo team. Every time I am in Munich we do a "Boazn" tour together, a crawl through the old-school neighbourhood pubs that have been there for decades. Highly recommended!
+summary: Senovo is a Munich-based early-stage B2B SaaS fund with a strong track record; [Parloa](https://sifted.eu/articles/parloa-hits-unicorn-status) is one of their portfolio companies. I came in as an intern and stayed to become an analyst, which at a fund that size means you end up close to everything. We invested in Quantilope during my time there, and I was involved in the deal, i.e. the sourcing, the diligence, the conversations with founders. Working directly with the partners in a small team meant there was no buffer between me and how investment decisions actually got made, which is about as good an education as you can get at that stage.
+learning: What venture taught me early was how genuinely difficult it is to build a company, not in a romanticised way but in a granular, operational sense. The more I saw, the more I felt I had a gap. While I understood the investment side in theory, I had never been part of the thing I was being asked to evaluate. That instinct was what took me onto the operator track.
+funFact: I'm still close with the Senovo team. Every time I am in Munich we do a "Boazn" tour together, a crawl through the old-school neighbourhood pubs that have been there for decades. Highly recommended!
 prefill: How did your early exposure to VC shape the way you think about founders?
 
 ## MILESTONE: navvis
@@ -66,8 +66,8 @@ year: 2016
 label: The Operator Years
 pending: false
 preview: Four years inside a deep tech scale-up, from PMF discovery to enterprise partnerships with SAP, Dassault, and HERE.
-summary: NavVis built technology that turns physical spaces into precise digital twins. I joined at 25 people and left at 200, and the work shifted substantially across those four years. As Innovation Project Manager, I ran the market selection process: structured experiments across manufacturing, construction, and real estate, two of which remain the core business today. As Strategic Partner Manager, I built the ecosystem that scaled it, with integrations with SAP, Dassault Systèmes, and HERE Technologies. Running those relationships shaped how I think about enterprise B2B distribution in every deal I evaluate now.
-learning: Four years at NavVis gave me a front-row seat on what good leadership looks like. Watching a founding team navigate PMF uncertainty and enterprise scale in the same company, and seeing how the best operators hold conviction while staying genuinely open to being wrong, shaped how I think about founders.
+summary: [NavVis](https://www.navvis.com/) built technology that turns physical spaces into precise digital twins. I joined at 25 people and left at 200, and the work shifted substantially across those four years. As Innovation Project Manager, our team's role was to find PMF with structured experiments across manufacturing, construction, and real estate, two of which remain the core business today. As Strategic Partner Manager, I built the ecosystem that scaled it, with integrations with SAP, Dassault Systèmes, and HERE Technologies. Running those relationships gave me a lot of insights on enterprise sales and the power of ecosystems.
+learning: Four years at NavVis gave me a front-row seat on what good leadership looks like. Watching a founding team navigate PMF uncertainty and enterprise scale in the same company, plus seeing experienced operators execute shaped how I think about founders and start-up teams.
 funFact: I joined NavVis at 25 people and three months in I was sent to a pitch competition and won. You gotta love the start-up onboarding process.
 prefill: How does understanding enterprise GTM change how you evaluate B2B startups?
 
@@ -83,7 +83,7 @@ label: Post-Series A
 pending: false
 preview: Life inside a post-Series A SaaS company, including through an acquisition.
 summary: e-bot7 was an AI customer service platform at Series A, and I built the partnerships function from scratch. The result was a SaaS program that generated 20% of company revenue within 18 months, before the company was acquired by LivePerson in 2021. That chapter gave me a close-up view of the scale-up phase post Series A with international expansion. Also what makes a company genuinely attractive to an acquirer when you are not just reading the announcement.
-learning: Scaling a high-growth startup gave me firsthand exposure to the tensions between growth, culture, and sustainable product development, as well as the complexity of expanding into new geographies. It was also my first team lead experience.
+learning: Scaling a high-growth startup gave me  exposure to the tensions between growth, culture, and sustainable product development, as well as the complexity of expanding into new geographies. It was also my first team lead experience.
 funFact: Joining a start-up during peak Covid times meant all the pressure and none of the office energy. Anyone interested in another virtual Christmas party?
 prefill: What does the acquisition experience tell you about how acquirers think about value?
 
@@ -114,7 +114,7 @@ year: 2026
 label: Next Chapter
 pending: false
 preview: Three years of full-cycle investing have built a foundation, and the next move is a higher-conviction platform.
-summary: Four and a half years of end-to-end deal experience across three geographies gave me a strong foundation, a global network, and a clear sense of where I add value as an investor. The next step is a team that leads at early-stage, has a clear mandate to back outsized winners, and has the ecosystem in place to do it well. I bring operating experience that lets me speak the language of founders, a genuine understanding of what it takes to build and scale, and a diverse set of perspectives drawn from working across Europe and Australia. I have been adopting AI from day one and am ready to help build an AI-native operating model that makes the fund sharper.
+summary: Four and a half years of end-to-end deal experience across three geographies gave me a strong foundation, a global network, and a clear sense of y strengths as an investor. The next step is a team that leads at early-stage, has a clear mandate to back outsized winners, and has the ecosystem in place to do it well. I bring operating experience that lets me speak the language of founders, a genuine understanding of what it takes to build and scale, and a diverse set of perspectives drawn from working across Europe and Australia. I have been adopting AI from day one and am ready to help build an AI-native operating model that makes the fund sharper.
 learning: The AI paradigm shift is creating a genuine step-change in what can be built, and the next few years will determine who the category leaders are. I want to be part of the team that finds them first.
 funFact: I have been in the Australian PR queue for 14 months and counting, which suggests DIBP also runs a thorough due diligence process before committing. Expected approval in 2026.
 prefill: What are you most convicted on right now as an investor?
