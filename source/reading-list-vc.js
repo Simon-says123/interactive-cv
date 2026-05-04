@@ -1,16 +1,9 @@
 // ── VC SITE READING LIST ──────────────────────────────────────────────────────
 //
-// Update bi-weekly. Each entry renders as a card in the reading deck.
-//
-// Fields:
-//   tag      — 1–3 word category shown top-left of card (free form, no fixed taxonomy)
-//   title    — Article title. Shorten if long — aim for max ~6 words on card.
-//   author   — Author name or publication
-//   url      — Full URL to the article (verify before publishing)
-//   why      — YOUR take in first person: why this is worth reading. 1–3 sentences.
-//              Update this in your own voice — don't leave the placeholder text live.
-//
-// Order: most recent or most relevant first.
+// DEPRECATED — this file is no longer read by source/build.js.
+// The editable source of truth is now: source/reading-list-vc.md
+// Edits made here will NOT be reflected on the site after the next build.
+// File kept in place for history; do not edit.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const READING_LIST = [

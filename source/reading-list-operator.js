@@ -1,16 +1,9 @@
 // ── OPERATOR SITE READING LIST ────────────────────────────────────────────────
 //
-// PLACEHOLDER — needs your articles. Replace all 4 entries.
-//
-// Fields:
-//   tag      — 1–3 word category shown top-left of card (free form)
-//   title    — Article title. Shorten if long — aim for max ~6 words on card.
-//   author   — Author name or publication
-//   url      — Full URL to the article (verify before publishing)
-//   why      — YOUR take in first person: why this is worth reading. 1–3 sentences.
-//
-// Suggested categories for an operator audience: "Ops", "GTM", "Leadership",
-// "AI Tools", "Product", "Culture", "0→1", "Scaling" — use whatever fits.
+// DEPRECATED — this file is no longer read by source/build.js.
+// The editable source of truth is now: source/reading-list-operator.md
+// Edits made here will NOT be reflected on the site after the next build.
+// File kept in place for history; do not edit.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const READING_LIST = [
