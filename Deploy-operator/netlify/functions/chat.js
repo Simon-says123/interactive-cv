@@ -152,3 +152,7 @@ exports.handler = async function (event) {
     req.end();
   });
 };
+
+
+// Exported so the shared Vercel function at /api/chat.js can reuse this prompt.
+module.exports.SYSTEM_PROMPT = SYSTEM_PROMPT;
