@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: { message: 'Too many messages in history' } });
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = (process.env.ANTHROPIC_API_KEY || '').trim();
   if (!apiKey) {
     return res.status(500).json({ error: { message: 'Service configuration error' } });
   }
@@ -52,10 +52,14 @@ module.exports = async (req, res) => {
     });
 
     if (!upstream.ok) {
-      return res.status(502).json({ error: { message: 'Upstream service error' } });
+      // Log the real Anthropic error so it shows up in Vercel runtime logs.
+      const detail = await upstream.text().catch(() => '');
+      console.error(`Anthropic API error ${upstream.status}: ${detail.slice(0, 500)}`);
+      return res.status(502).json({ error: { message: `Upstream service error (${upstream.status})` } });
     }
     return res.status(200).json(await upstream.json());
-  } catch {
+  } catch (err) {
+    console.error('Chat proxy failed before reaching Anthropic:', err && (err.stack || err.message || err));
     return res.status(502).json({ error: { message: 'Upstream service error' } });
   }
 };
