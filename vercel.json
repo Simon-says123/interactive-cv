@@ -1,1 +1,3 @@
-{"rewrites":[{"source":"/.netlify/functions/chat","destination":"/api/chat"}]}
+{
+  "buildCommand": "node source/build.js"
+}
